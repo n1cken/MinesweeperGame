@@ -9,7 +9,7 @@ public class minesweeper {
     public static String  [][] board      = new String[10][11];  //Skriva ut brädet
     public static int     [][] checkState = new int [10][11];  // förvara states
     public static boolean [][] flagState  = new boolean [10][11];
-    public static boolean alreadyUsed = false; //kommenterat
+    public static boolean alreadyUsed = false; //Test OK.
 
     // render( x, y )
 
@@ -18,6 +18,8 @@ public class minesweeper {
     public static String flag   = " F";
     public static String clear   = " .";
 
+
+    public static boolean gameOver = false;
     static int antalBomb = 15;
     static int genererad = 0;
     public static boolean hit = false;
@@ -158,7 +160,6 @@ public class minesweeper {
         return genererad;
     }
 
-
     /////////////////       RENDER        /////////////
     public static void render(int x, int y) {
 
@@ -193,8 +194,6 @@ public class minesweeper {
     //////////// VID FÖRSÖK AV KORDINAT RENDERAS REDAN GENERERAD BOARD ///////////
     public static void forsok(int x, int y) {
 
-        boolean gameOver = false;
-
         for (String i : letters) {
             System.out.print(i + " ");
         }
@@ -211,7 +210,7 @@ public class minesweeper {
 
                 if (j > 0) {
 
-                    if (i == x && y == j) {  //När X och Y är samma som tabellens rendering-räkning i och j, markera med X
+                    if (i == x && y == j) {  //When input cordinates x, y MATCHES for loop i, j
                         if (checkState[i][j] == 1) {
                             alreadyUsed();
                         }
@@ -222,28 +221,24 @@ public class minesweeper {
 
                         if (board[i][j].equals(used)) {
 
-                            if (checkState[i][j] == -1) {
-                                // board[i][j] = " B";
-                                System.out.print(" B");
-                                gameOver = true;
+                            if (checkState[i][j] == -1) {  //BOMB? Game Over
+                                bombHit();
                                 continue;
                             }
 
-                            if (flagState[i][j]) {
+                            if (flagState[i][j]) {         // FLAG? Change to X
                                 flagState[i][j] = !flagState[i][j];
                                 checkState[i][j] = 1;
                             }
 
-
-                            else
+                            else                           // ELSE? Change to X
                                 checkState[i][j] = 1;
 
-                            if (checkState[i][j] != -1) { //CLEARA RUNT FREE SPACE
-                                safeSpot(i, j);
+                                if (checkState[i][j] != -1) { //CLEAR CHECKSTATE = 0
+                                    safeSpot(i, j);
                             }
                         }
                     }
-
 
 
                     if (flagState[i][j]) {
@@ -286,6 +281,12 @@ public class minesweeper {
             System.out.println("You hit a bomb! GAME OVER.");
         }
     }
+
+    public static void bombHit() {
+        System.out.print(" B");
+        gameOver = true;
+    }
+
 
     public static void safeSpot(int x, int y) {
         if (checkState[x][y] == 0) {
