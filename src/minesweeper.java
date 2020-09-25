@@ -9,7 +9,7 @@ public class minesweeper {
     public static String  [][] board      = new String[10][11];  //Skriva ut brädet
     public static int     [][] checkState = new int [10][11];  // förvara states
     public static boolean [][] flagState  = new boolean [10][11];
-    public static boolean alreadyUsed = false;
+    public static boolean alreadyUsed = false; //kommenterat
 
     // render( x, y )
 
