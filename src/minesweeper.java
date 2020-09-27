@@ -14,7 +14,7 @@ public class minesweeper {
     // render( x, y )
 
     public static String unused = " -";
-    public static String used   = " X";
+    public static String used   = " .";
     public static String flag   = " F";
     public static String clear   = " .";
 
@@ -60,7 +60,13 @@ public class minesweeper {
                         int ycord = generateXCords(userInput);
 
                         forsok(xcord, ycord + 1);
-                    } break;
+                    }
+                    else
+                        System.out.print("unknown command");
+                        System.out.println("");
+                        System.out.println("");
+                        System.out.println("> ");
+                    break;
 
                 case "f":
 
@@ -77,7 +83,20 @@ public class minesweeper {
 
                         flagga(xcord, ycord + 1);
 
-                    } break;
+
+
+                    }
+                    else
+                         System.out.print("unknown command");
+                         System.out.println("");
+                         System.out.println("");
+                         System.out.println("> ");
+
+                    break;
+
+                default:
+
+                    System.out.print("syntax error");
             }
         }
     }
@@ -247,23 +266,21 @@ public class minesweeper {
 
                     else if (checkState[i][j] == 1) {
                         System.out.print(used);
-
                     }
 
                     else if (gameOver) {
-                        if (checkState[i][j] == -1) { // 0 = neutral; -1 = bomb; 1 = clear; 2 = Num; 3 = Flag
-                            System.out.print(" B");
+                         if (checkState[i][j] == -1) { // 0 = neutral; -1 = bomb; 1 = clear; 2 = Num; 3 = Flag
+                            System.out.print(" M");
                         }
 
                         else
                             System.out.print(unused);
-                        newgame = false;
+                            newgame = false;
 
                     }
                     else
                         System.out.print(unused);
                 }
-
             }
         }
 
@@ -283,7 +300,7 @@ public class minesweeper {
     }
 
     public static void bombHit() {
-        System.out.print(" B");
+        System.out.print(" M");
         gameOver = true;
     }
 
@@ -293,7 +310,6 @@ public class minesweeper {
             board[x][y] = ". ";
         }
     }
-
 
 
     //////////  FLAGGNING  ///////////////////
@@ -331,7 +347,6 @@ public class minesweeper {
                     else if (flagState[i][j]) {
                         System.out.print(flag);
                     }
-
 
                     else
                         System.out.print(unused);
