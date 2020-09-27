@@ -97,6 +97,7 @@ public class minesweeper {
                 default:
 
                     System.out.print("syntax error");
+
             }
         }
     }
@@ -286,7 +287,7 @@ public class minesweeper {
 
         if (alreadyUsed) {
             System.out.println("");
-            System.out.print("Already used, try again.");
+            System.out.print("not allowed");
             alreadyUsed = false;
         }
 
@@ -301,6 +302,7 @@ public class minesweeper {
 
     public static void bombHit() {
         System.out.print(" M");
+
         gameOver = true;
     }
 
